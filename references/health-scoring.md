@@ -8,7 +8,7 @@
 2. 汇总证据：提交、测试、CI、文档、需求、PR、事故、用户反馈。
 3. 按生产力、RMST、工程文化、用户价值四个维度打分；没有证据不默认满分。
 4. 输出总分、等级、风险、后续行动。
-5. 建议把报告写入轻量模式的 `docs/retrospective/YYYY-MM-DD.md` 或严格模式的 `.helm/retrospective/YYYY-MM-DD.md`，并更新 `progress.md` 或 `.helm/state/progress.md`。
+5. 建议把报告写入轻量模式的 `docs/retrospective/YYYY-MM-DD.md` 或严格模式的 `.ai_helm/retrospective/YYYY-MM-DD.md`，并更新 `progress.md` 或 `.ai_helm/state/progress.md`。
 
 ## 报告格式
 

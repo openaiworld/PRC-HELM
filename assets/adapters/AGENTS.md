@@ -11,7 +11,7 @@ This project uses `prc-helm` as its engineering governance rule set.
 - For bugs, reproduce first when possible, then fix and add regression validation.
 - For severe incidents, create or propose a postmortem within 72 hours.
 - In strict mode, apply RMST gates: Reliability, Maintainability, Scalability, and Traceability.
-- If `.helm/` exists or the user asks for multi-agent orchestration, read `.helm/HELM.md`, `.helm/agents.md`, `.helm/state/progress.md`, and `.helm/state/queue.json`.
+- If `.ai_helm/` exists or the user asks for multi-agent orchestration, read `.ai_helm/HELM.md`, `.ai_helm/agents.md`, `.ai_helm/state/progress.md`, and `.ai_helm/state/queue.json`.
 - When the user says “收工”, “总结一下”, “迭代结束”, “sprint 结束”, or “本轮完成”, produce an iteration health report.
 
 # Workflows

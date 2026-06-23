@@ -1,18 +1,18 @@
 # Agent 角色契约
 
-本文件用于 PRC-HELM 严格模式 / Loop 模式。只有在任务需要多 Agent 分工、队列调度或项目已采用 `.helm/agents.md` 时加载。
+本文件用于 PRC-HELM 严格模式 / Loop 模式。只有在任务需要多 Agent 分工、队列调度或项目已采用 `.ai_helm/agents.md` 时加载。
 
 ## OrchestratorAgent · 指挥部
 
 职责：
 
-- 读取 `.helm/state/progress.md`，重新评估主要矛盾。
-- 读取 `.helm/state/queue.json`，确认队列状态。
+- 读取 `.ai_helm/state/progress.md`，重新评估主要矛盾。
+- 读取 `.ai_helm/state/queue.json`，确认队列状态。
 - 按任务 type 路由到对应 Agent。
 - 检测 `blocked` 任务，暂停 Loop 并请求人类介入。
 - 主要矛盾转化时，重排队列并通知 PlannerAgent 重新规划。
 
-输出：`.helm/state/queue.json`、`.helm/state/progress.md`、阻塞报告。
+输出：`.ai_helm/state/queue.json`、`.ai_helm/state/progress.md`、阻塞报告。
 
 ## PlannerAgent · 参谋部
 
@@ -24,18 +24,18 @@
 - 估时乘以 1.5 作为缓冲。
 - 保障每个 Sprint 约 20% 时间用于技术债偿还。
 
-输出：`.helm/state/queue.json`。
+输出：`.ai_helm/state/queue.json`。
 
 ## ResearcherAgent · 调查员
 
 职责：
 
-- 检查 `.helm/failure-kb/`，避免重复踩坑。
+- 检查 `.ai_helm/failure-kb/`，避免重复踩坑。
 - 整理用户故事、验收标准、业务约束与技术约束。
 - 对需求空白明确列出澄清问题，不自行假设。
 - 必要时产出用户反馈分析。
 
-输出：`.helm/decisions/rfc/YYYY-MM-title.md`、`.helm/feedback/YYYY-QN-report.md`。
+输出：`.ai_helm/decisions/rfc/YYYY-MM-title.md`、`.ai_helm/feedback/YYYY-QN-report.md`。
 
 ## ArchitectAgent · 参谋
 
@@ -47,7 +47,7 @@
 - 接口变更时声明废弃路径，建议至少 2 个版本兼容期。
 - 扩展点优先考虑 Plugin、Strategy、Event 等低耦合模式。
 
-输出：`.helm/decisions/rfc/`、`.helm/decisions/adr/`、`.helm/quality/scalability/api-versioning.md`。
+输出：`.ai_helm/decisions/rfc/`、`.ai_helm/decisions/adr/`、`.ai_helm/quality/scalability/api-versioning.md`。
 
 ## CoderAgent · 战士
 
@@ -59,7 +59,7 @@
 - 重构必须走渐进策略：Feature Flag / 兼容层 → 灰度 → 清理。
 - 完成后填写 PR 自查清单。
 
-输出：代码变更、`spike/YYYY-MM-topic/README.md`、`.helm/quality/maintainability/refactor-YYYY-MM.md`。
+输出：代码变更、`spike/YYYY-MM-topic/README.md`、`.ai_helm/quality/maintainability/refactor-YYYY-MM.md`。
 
 ## ReviewerAgent · 监察委
 
@@ -70,7 +70,7 @@
 - 使用 `[MUST]`、`[SHOULD]`、`[NIT]`、`[RMST-R]`、`[RMST-M]`、`[RMST-S]`、`[RMST-T]` 标注问题。
 - 所有 `[MUST]` 解决后才建议合并。
 
-输出：PR 审查意见、`.helm/quality/maintainability/debt-YYYY-QN.md`。
+输出：PR 审查意见、`.ai_helm/quality/maintainability/debt-YYYY-QN.md`。
 
 ## SentinelAgent · 哨兵
 
@@ -81,7 +81,7 @@
 - 维护告警规则，核心路径建议 MTTD 小于 5 分钟。
 - 线上告警触发后协同 HistorianAgent 启动 postmortem。
 
-输出：`.helm/quality/reliability/slo-service.md`、`fallback-service.md`、`alerts.md`、`chaos-YYYY-QN.md`。
+输出：`.ai_helm/quality/reliability/slo-service.md`、`fallback-service.md`、`alerts.md`、`chaos-YYYY-QN.md`。
 
 ## HistorianAgent · 史官
 
@@ -93,4 +93,4 @@
 - Sprint 结束时生成健康度报告。
 - 故障发生后协助在 72 小时内完成 postmortem。
 
-输出：`.helm/failure-kb/`、`.helm/quality/traceability/matrix.md`、`CHANGELOG.md`、`.helm/retrospective/`、`.helm/postmortem/`。
+输出：`.ai_helm/failure-kb/`、`.ai_helm/quality/traceability/matrix.md`、`CHANGELOG.md`、`.ai_helm/retrospective/`、`.ai_helm/postmortem/`。

@@ -304,7 +304,7 @@ UI 变更必填。
 见 `references/health-scoring.md`。
 ```
 
-## `.helm/state/progress.md`
+## `.ai_helm/state/progress.md`
 
 严格模式 / Loop 模式下使用。
 
@@ -346,10 +346,10 @@ UI 变更必填。
 ## 上一迭代结论
 
 健康度得分：— / 100  
-复盘报告：`.helm/retrospective/YYYY-MM-DD.md`
+复盘报告：`.ai_helm/retrospective/YYYY-MM-DD.md`
 ```
 
-## `.helm/state/queue.json`
+## `.ai_helm/state/queue.json`
 
 ```json
 {
@@ -371,7 +371,7 @@ UI 变更必填。
       "status": "pending",
       "priority": "primary",
       "input_files": [],
-      "output_path": ".helm/decisions/rfc/YYYY-MM-title.md",
+      "output_path": ".ai_helm/decisions/rfc/YYYY-MM-title.md",
       "depends_on": [],
       "estimated_hours": 2,
       "retry_count": 0,
@@ -388,7 +388,7 @@ UI 变更必填。
 }
 ```
 
-## `.helm/config.json`
+## `.ai_helm/config.json`
 
 ```json
 {
@@ -419,7 +419,7 @@ UI 变更必填。
 
 ## SLO 文档
 
-建议创建到 `.helm/quality/reliability/slo-service.md`。
+建议创建到 `.ai_helm/quality/reliability/slo-service.md`。
 
 ```markdown
 # SLO: <服务名称>
@@ -445,7 +445,7 @@ UI 变更必填。
 
 ## 需求追踪矩阵
 
-建议创建到 `.helm/quality/traceability/matrix.md`。
+建议创建到 `.ai_helm/quality/traceability/matrix.md`。
 
 ```markdown
 # 需求追踪矩阵

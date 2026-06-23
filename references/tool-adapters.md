@@ -72,7 +72,7 @@ cp assets/adapters/CLAUDE.md ./CLAUDE.md
 - 架构/跨模块变化使用 RFC/ADR。
 - 事故修复后补回归验证，严重事故写 postmortem。
 - 严格模式执行 RMST 四柱检查。
-- 项目存在 `.helm/` 或需要多 Agent 协同时，读取 `.helm/state/progress.md` 与 `.helm/state/queue.json`。
+- 项目存在 `.ai_helm/` 或需要多 Agent 协同时，读取 `.ai_helm/state/progress.md` 与 `.ai_helm/state/queue.json`。
 - 用户说“收工/总结一下/迭代结束”时输出健康度评分。
 ```
 
@@ -112,7 +112,7 @@ mkdir -p .cursor/rules
 cp assets/adapters/prc-helm.mdc .cursor/rules/prc-helm.mdc
 ```
 
-规则应尽量短，保留核心约束即可：主要矛盾、需求先行、技术矩阵、RFC/ADR、RMST、`.helm` 状态、测试验证、迭代收尾。
+规则应尽量短，保留核心约束即可：主要矛盾、需求先行、技术矩阵、RFC/ADR、RMST、`.ai_helm` 状态、测试验证、迭代收尾。
 
 ## Windsurf
 

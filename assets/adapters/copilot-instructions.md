@@ -10,5 +10,5 @@
 - 重构和迁移优先分阶段推进并保留回滚路径。
 - Bug 修复先复现再修复，并补充回归验证。
 - 严格模式检查 RMST：可靠性、可维护性、可扩展性、可溯源性。
-- 存在 `.helm/` 或多 Agent 协同时，优先参考 `.helm/state/progress.md` 与 `.helm/state/queue.json`。
+- 存在 `.ai_helm/` 或多 Agent 协同时，优先参考 `.ai_helm/state/progress.md` 与 `.ai_helm/state/queue.json`。
 - 迭代收尾时总结完成情况、风险、健康度评分和下一步。
