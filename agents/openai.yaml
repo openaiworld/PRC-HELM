@@ -1,0 +1,7 @@
+interface:
+  display_name: "PRC-HELM"
+  short_description: "面向编程 Agent 的证据化项目治理"
+  default_prompt: "使用 $prc-helm 以规范的软件工程流程规划、审查或收尾这个任务。"
+
+policy:
+  allow_implicit_invocation: true
