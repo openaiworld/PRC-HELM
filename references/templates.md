@@ -304,24 +304,154 @@ UI 变更必填。
 见 `references/health-scoring.md`。
 ```
 
-## progress.md
+## `.helm/state/progress.md`
+
+严格模式 / Loop 模式下使用。
 
 ```markdown
-# Progress
+# PRC-HELM · 迭代状态
 
 ## 当前主要矛盾
 
-## 次要矛盾
+> 本迭代唯一核心目标，一句话。
+
+## 次要矛盾（≤3条）
 
 1.
 2.
 3.
 
-## 当前计划
+## Sprint 信息
 
-## 技术债 / 已接受风险
+| 字段 | 值 |
+|---|---|
+| Sprint ID | sprint-001 |
+| 开始日期 | YYYY-MM-DD |
+| 结束日期 | YYYY-MM-DD |
+| 当前 Loop 迭代 | 0 / 20 |
+| 上次更新 | YYYY-MM-DDTHH:mm:ssZ |
+| 更新 Agent | OrchestratorAgent |
 
-## 待决策事项
+## RMST 状态快照
 
-## 下一迭代候选主要矛盾
+| 质量柱 | 当前状态 | 最近异常 |
+|---|---|---|
+| 可靠性（R） | ✅ 正常 | - |
+| 可维护性（M） | ✅ 正常 | - |
+| 可扩展性（S） | ✅ 正常 | - |
+| 可溯源性（T） | ✅ 正常 | - |
+
+## 待关注风险
+
+## 上一迭代结论
+
+健康度得分：— / 100  
+复盘报告：`.helm/retrospective/YYYY-MM-DD.md`
 ```
+
+## `.helm/state/queue.json`
+
+```json
+{
+  "version": "2.0",
+  "sprint": {
+    "id": "sprint-001",
+    "primary_contradiction": "当前主要矛盾",
+    "started": "YYYY-MM-DD",
+    "ends": "YYYY-MM-DD",
+    "iteration_count": 0,
+    "max_iterations": 20
+  },
+  "queue": [
+    {
+      "id": "t001",
+      "title": "简洁动宾短语描述任务",
+      "agent": "ResearcherAgent",
+      "type": "research",
+      "status": "pending",
+      "priority": "primary",
+      "input_files": [],
+      "output_path": ".helm/decisions/rfc/YYYY-MM-title.md",
+      "depends_on": [],
+      "estimated_hours": 2,
+      "retry_count": 0,
+      "max_retries": 2,
+      "blocked_reason": null,
+      "created_at": "YYYY-MM-DDTHH:mm:ssZ",
+      "completed_at": null
+    }
+  ],
+  "in_progress": null,
+  "completed": [],
+  "failed": [],
+  "blocked": []
+}
+```
+
+## `.helm/config.json`
+
+```json
+{
+  "version": "2.0",
+  "loop": {
+    "max_iterations": 20,
+    "iteration_timeout_minutes": 30,
+    "parallel_task_limit": 3,
+    "auto_continue_on_success": true,
+    "pause_on_blocked": true,
+    "pause_on_primary_contradiction_shift": true
+  },
+  "retry": {
+    "max_retries_per_task": 2,
+    "archive_to_failure_kb_on_final_failure": true
+  },
+  "quality_gates": {
+    "enable_rmst_check": true,
+    "block_on_circular_dependency": true,
+    "block_on_missing_slo": true,
+    "block_on_missing_test": true,
+    "cyclomatic_complexity_max": 10,
+    "function_lines_max": 50,
+    "test_coverage_min_percent": 80
+  }
+}
+```
+
+## SLO 文档
+
+建议创建到 `.helm/quality/reliability/slo-service.md`。
+
+```markdown
+# SLO: <服务名称>
+
+## SLI
+
+- 可用性：<目标>%（滚动 30 天）
+- P99 延迟：<N>ms
+- 错误率：<N>%
+
+## 降级策略
+
+- 触发条件：
+- 降级行为：
+- 兜底数据：
+
+## 告警配置
+
+- 通道：
+- 接收人：
+- 升级路径：
+```
+
+## 需求追踪矩阵
+
+建议创建到 `.helm/quality/traceability/matrix.md`。
+
+```markdown
+# 需求追踪矩阵
+
+| 需求 | RFC | ADR | 任务 | 代码/PR | 测试 | 状态 |
+|---|---|---|---|---|---|---|
+|  |  |  |  |  |  |  |
+```
+
