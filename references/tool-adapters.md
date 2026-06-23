@@ -71,6 +71,8 @@ cp assets/adapters/CLAUDE.md ./CLAUDE.md
 - 技术选型使用加权矩阵。
 - 架构/跨模块变化使用 RFC/ADR。
 - 事故修复后补回归验证，严重事故写 postmortem。
+- 严格模式执行 RMST 四柱检查。
+- 项目存在 `.helm/` 或需要多 Agent 协同时，读取 `.helm/state/progress.md` 与 `.helm/state/queue.json`。
 - 用户说“收工/总结一下/迭代结束”时输出健康度评分。
 ```
 
@@ -96,9 +98,9 @@ cp assets/adapters/AGENTS.md ./AGENTS.md
 
 1. 读取项目文档和上下文。
 2. 说明主要矛盾。
-3. 选择轻量/标准/严格模式。
-4. 执行并验证。
-5. 记录风险、技术债和后续事项。
+3. 选择轻量/标准/严格/Loop 模式。
+4. 执行、验证，并在适用时检查 RMST。
+5. 记录风险、技术债、可溯源性和后续事项。
 ```
 
 ## Cursor
@@ -110,7 +112,7 @@ mkdir -p .cursor/rules
 cp assets/adapters/prc-helm.mdc .cursor/rules/prc-helm.mdc
 ```
 
-规则应尽量短，保留核心约束即可：主要矛盾、需求先行、技术矩阵、RFC/ADR、测试验证、迭代收尾。
+规则应尽量短，保留核心约束即可：主要矛盾、需求先行、技术矩阵、RFC/ADR、RMST、`.helm` 状态、测试验证、迭代收尾。
 
 ## Windsurf
 

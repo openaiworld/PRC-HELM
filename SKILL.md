@@ -1,6 +1,6 @@
 ---
 name: prc-helm
-description: PRC-HELM，中文工程治理与项目纪律 skill，Historical-Engineering Liberation Methodology。供编程 Agent 在项目规划、功能启动、架构评审、技术选型、事故处理、技术债治理、PR 审查、迭代复盘、RFC/ADR/需求文档/事后复盘模板生成、工具适配说明时使用。强调需求先行、调查研究、主要矛盾识别、PoC 验证、用户故事、渐进式重构、证据化决策和迭代健康度评分。
+description: PRC-HELM，中文工程治理与项目纪律 skill，Historical-Engineering Liberation Methodology。供编程 Agent 在项目规划、功能启动、架构评审、技术选型、事故处理、技术债治理、PR 审查、迭代复盘、RFC/ADR/需求文档/事后复盘模板生成、工具适配说明、多 Agent Loop、.helm 状态目录、RMST 质量门禁时使用。强调需求先行、调查研究、主要矛盾识别、PoC 验证、用户故事、渐进式重构、证据化决策和迭代健康度评分。
 ---
 
 # PRC-HELM
@@ -18,6 +18,8 @@ PRC-HELM 是面向编程 Agent 的中文工程治理 skill。HELM 展开为 **Hi
 - **民主讨论，集中执行**：跨模块或架构级变化使用 RFC/ADR；决策形成后保持实现一致。
 - **务实选型**：技术选择看适配度、可维护性、基准数据和团队熟悉度，不追逐流行本身。
 - **批评与自我批评**：在 PR、Review、复盘中明确风险、限制、测试情况和后续技术债。
+- **RMST 质量四柱**：严格模式下从可靠性、可维护性、可扩展性、可溯源性四个维度做门禁检查。
+- **状态隔离**：长期治理或 Loop 模式下，优先将 PRC-HELM 产物归档到 `.helm/`，避免污染项目源码目录。
 
 ## 使用强度
 
@@ -25,7 +27,8 @@ PRC-HELM 是面向编程 Agent 的中文工程治理 skill。HELM 展开为 **Hi
 
 - **轻量模式**：小修、小文档、明确单点问题。只说明主要矛盾、直接执行、给出验证结果。
 - **标准模式**：常规功能、重构、Bug 修复。执行任务开始检查清单，必要时补需求、测试和文档。
-- **严格模式**：架构、跨模块、生产事故、重大迁移、长期技术选型。必须使用 RFC/ADR、技术矩阵、spike 或 postmortem 等正式产物。
+- **严格模式**：架构、跨模块、生产事故、重大迁移、长期技术选型。必须使用 RFC/ADR、技术矩阵、spike、postmortem 或 RMST 质量门禁等正式产物。
+- **Loop 模式**：多 Agent 协同、自动队列、长期项目治理。启用 `.helm/` 状态目录、任务队列、Agent 路由和 Loop 终止条件；详见 [references/helm-loop.md](references/helm-loop.md)。
 
 ## 任务开始检查清单
 
@@ -36,6 +39,8 @@ PRC-HELM 是面向编程 Agent 的中文工程治理 skill。HELM 展开为 **Hi
    - **技术选型**：使用 [references/templates.md](references/templates.md) 中的加权矩阵比较方案。
    - **架构/跨模块变更**：创建或建议 RFC/ADR，模板见 [references/templates.md](references/templates.md)。
    - **Bug/事故**：先复现，再定位根因，补回归测试；严重生产事故需创建或建议事后复盘。
+   - **质量治理**：新服务、核心路径、生产系统或严格模式下，检查 RMST 四柱，详见 [references/rmst-quality.md](references/rmst-quality.md)。
+   - **Loop/队列治理**：项目存在 `.helm/` 或用户要求多 Agent 协同时，读取 [references/helm-loop.md](references/helm-loop.md) 和 [references/agent-roles.md](references/agent-roles.md)。
    - **重构/迁移**：优先使用 Feature Flag、兼容层、灰度或分阶段迁移；除非用户明确要求并有充分理由，避免一次性重写。
 4. 围绕一个核心交付物制定计划。如果同时存在超过两个主任务，请用户排序。
 5. 写入新文档或治理文件前，确认项目已有约定；没有约定时再采用本 skill 推荐结构。
@@ -101,11 +106,18 @@ PRC-HELM 是面向编程 Agent 的中文工程治理 skill。HELM 展开为 **Hi
 
 1. 总结已完成工作、未解决风险和下一阶段主要矛盾。
 2. 使用 [references/health-scoring.md](references/health-scoring.md) 进行迭代健康度评分。
-3. 在适用时建议更新 `progress.md`、`CHANGELOG.md`、`docs/retrospective/YYYY-MM-DD.md`。
+3. 在适用时建议更新 `progress.md`、`CHANGELOG.md`、轻量模式的 `docs/retrospective/YYYY-MM-DD.md`，或严格模式的 `.helm/retrospective/YYYY-MM-DD.md`。
+
+### PRC-HELM Loop / 多 Agent 协同
+
+- 仅在用户明确要求、项目已存在 `.helm/`，或任务需要长期队列治理时启用 Loop 模式。
+- 启用后优先读取 `.helm/HELM.md`、`.helm/agents.md`、`.helm/state/progress.md`、`.helm/state/queue.json`、`.helm/config.json`。
+- 所有治理产物优先归档到 `.helm/`，包括 RFC、ADR、SLO、技术债、failure-kb、postmortem、retrospective。
+- 遇到 `blocked` 任务、主要矛盾转化、超过最大迭代次数或质量门禁连续失败时，暂停并请求用户决策。
 
 ## 推荐项目结构
 
-当项目没有等价约定时，使用以下目录：
+当项目没有等价约定时，使用以下轻量目录；严格模式可改用 `.helm/` 隔离结构：
 
 ```text
 docs/
@@ -121,9 +133,29 @@ spike/            # 独立技术验证
 progress.md       # 当前主要矛盾、次要问题、下一步
 ```
 
+严格模式 / Loop 模式推荐：
+
+```text
+.helm/
+  HELM.md
+  agents.md
+  config.json
+  state/
+    progress.md
+    queue.json
+  decisions/{rfc,adr}/
+  quality/{reliability,maintainability,scalability,traceability}/
+  failure-kb/
+  postmortem/
+  retrospective/
+  knowledge/
+```
+
 ## 引用资料
 
-- 需要模板时读取 [references/templates.md](references/templates.md)：用户故事、需求文档、技术选型矩阵、RFC、ADR、PR、spike、failure-kb、postmortem、progress 模板。
+- 需要模板时读取 [references/templates.md](references/templates.md)：用户故事、需求文档、技术选型矩阵、RFC、ADR、PR、spike、failure-kb、postmortem、progress、queue、config、SLO、追踪矩阵模板。
+- 严格模式下做质量门禁时，读取 [references/rmst-quality.md](references/rmst-quality.md)。
+- 启用多 Agent Loop 或 `.helm/` 状态目录时，读取 [references/helm-loop.md](references/helm-loop.md) 和 [references/agent-roles.md](references/agent-roles.md)。
 - 迭代收尾或项目健康度审计时读取 [references/health-scoring.md](references/health-scoring.md)。
 - 用户询问如何在 Claude Code、Codex、Cursor、Windsurf、Copilot 等工具中落地时，读取 [references/tool-adapters.md](references/tool-adapters.md)。
 - 用户询问完整命名含义、理论映射、方法论来源或需要修订方法论时，读取 [references/source-methodology.md](references/source-methodology.md)。
